@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Animal GIFs</title>
+  <link rel="stylesheet" href="cutestrap.min.css">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+  <main>
+    <section class="grid">
+      <div class="">
+        <h3>Click Da Buttons!</h3>
+        <div id="button-container">
+          <!-- buttons go here, and have class animal-button -->
+        </div>
+      </div>
+
+    </section>
+
+    <section class="grid grid--large">
+
+      <div class="column--light">
+        <form id="newButton-form">
+          <p id="message-box"></p>
+            <label class="textfield">
+              <input type="text" id="animal-input" placeholder="Animal"/>
+              <span class="textfield__label">New Animal</span>
+            </label>
+          <!-- Button triggers new movie to be added -->
+          <input class="btn" id="add-button" type="submit" value="Add">
+        </form>
+      </div>
+
+      <div id="results-pane">
+
+      </div>
+    </section>
+    </main>
+
+
+
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var animals = ["cat", "dog","aardvark","chicken","chimpanzee","hamster","giraffe","hippo","lizard"];
+
+      // Function for displaying movie data
+      function renderButtons() {
+
+        $("#button-container").empty();
+        for (var i = 0; i < animals.length; i++) {
+          var newButton = $("<button type='submit'></button>");
+
+          newButton.text(animals[i]);
+          newButton.addClass("btn animal-button");
+          newButton.attr("data-animal", animals[i])
+
+          $("#button-container").append(newButton);
+        };
+      };
+
+      //Add a new animal to the Animals array when the 'Add' button is clicked
+      $("#add-button").on("click", function(event) {
+        console.log("clicked")
+        event.preventDefault();
+          //grab the animal from the input field
+          newAnimal = $("#animal-input").val().trim().toLowerCase();
+          $("#animal-input").val("");
+
+          //Check to see if there is actually something in the field
+          if (newAnimal.length !== 0) {
+            //Check to see if the Animal is already in the list
+            if (animals.indexOf(newAnimal) === -1) {
+              $("#message-box").empty();
+                animals.push(newAnimal);
+            }
+            else {
+              $("#message-box").text("There's already a button for this");
+            }
+          }
+        // The renderButtons function is called, rendering the list of movie buttons
+        renderButtons();
+        addClickHandle();
+      });
+
+      //function to add click handlers to the animal buttons, and to make the API call to GIPHY.
+      addClickHandle = function() {
+          $(".animal-button").click(function() {
+
+
+            queryURL = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + $(this).attr("data-animal") + "&limit=12";
+            $.ajax({url: queryURL, method: "GET"}).
+              //Callback function on the AJAX call
+              done(function(response) {
+                test = response
+                //clear the GIFS if there are any in the results-pane
+                $("#results-pane").empty();
+                //Create the GIF Elements
+                response.data.forEach(function(ele, index){
+                  divGIF = $("<div class='gif'>");
+                  $("#results-pane").append(divGIF);
+
+                  imgGIF = $("<img>");
+                  imgGIF.attr("src", ele.images.original_still.url);
+                    divGIF.append(imgGIF)
+                  divGIF.append("<h4>Rating: "+ ele.rating + "</h4>");
+
+                  imgGIF.on("click", function() {
+                    console.log("clicked ")
+                    if ($(event.target).attr("src").search("_s.gif") !== -1) {
+                      $(event.target).attr("src", ele.images.original.url)
+                    }
+                    else {
+                      $(event.target).attr("src", ele.images.original_still.url)
+                    }
+                  });
+
+
+                })
+              });
+
+            })
+        };
+
+    renderButtons();
+    addClickHandle();
+    </script>
+</body>
+
+</html>

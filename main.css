@@ -1,0 +1,52 @@
+main {
+  width: 95%;
+  margin: 20px auto;
+  font-size: 16px;
+}
+
+form {
+  padding: 0;
+}
+
+.textfield {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  background-color: #01721b;
+  margin: 5px;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+.btn:hover, .btn:active, .btn:focus, .btn:visited {
+  background-color: #4d9c5f;
+}
+
+#button-container .btn{
+  text-transform: capitalize;
+}
+
+#results-pane {
+  margin: 0 auto;
+}
+
+.gif{
+  width: 160px;
+  padding: 10px;
+  margin: 10px 5px;
+  border: 1px solid black;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.gif img {
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.gif h4 {
+  padding: 0;
+  margin-bottom: 5px;
+}
