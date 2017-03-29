@@ -92,7 +92,7 @@
           $(".animal-button").click(function() {
 
 
-            queryURL = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + $(this).attr("data-animal") + "&limit=12";
+            queryURL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + $(this).attr("data-animal") + "&limit=12";
             $.ajax({url: queryURL, method: "GET"}).
               //Callback function on the AJAX call
               done(function(response) {
