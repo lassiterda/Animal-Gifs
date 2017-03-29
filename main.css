@@ -41,6 +41,7 @@ form {
 }
 
 .gif img {
+  margin: 0 auto;
   height: 150px;
   width: 150px;
   cursor: pointer;

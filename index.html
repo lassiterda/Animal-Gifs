@@ -52,14 +52,14 @@
       function renderButtons() {
 
         $("#button-container").empty();
-        for (var i = 0; i < animals.length; i++) {
-          var newButton = $("<button type='submit'></button>");
+          for (var i = 0; i < animals.length; i++) {
+            var newButton = $("<button type='submit'></button>");
 
-          newButton.text(animals[i]);
-          newButton.addClass("btn animal-button");
-          newButton.attr("data-animal", animals[i])
+            newButton.text(animals[i]);
+            newButton.addClass("btn animal-button");
+            newButton.attr("data-animal", animals[i])
 
-          $("#button-container").append(newButton);
+            $("#button-container").append(newButton);
         };
       };
 
@@ -110,12 +110,16 @@
                   divGIF.append("<h4>Rating: "+ ele.rating + "</h4>");
 
                   imgGIF.on("click", function() {
-                    console.log("clicked ")
                     if ($(event.target).attr("src").search("_s.gif") !== -1) {
                       $(event.target).attr("src", ele.images.original.url)
+                      $(event.target).parent().css("backgroundColor", "#4d9c5f")
+                      $(event.target).parent().css("color", "#fff")
+
                     }
                     else {
                       $(event.target).attr("src", ele.images.original_still.url)
+                      $(event.target).parent().css("backgroundColor", "#fff")
+                      $(event.target).parent().css("color", "#000")
                     }
                   });
 
